@@ -1,0 +1,25 @@
+#----------------------------------------------------#
+#   _______  ___      ___  ___      ___   _______    #
+#  /"     "||"  \    /"  ||"  \    /"  | /"      \   #
+# (: ______) \   \  //   | \   \  //   ||:        |  #
+#  \/    |   /\\  \/.    | /\\  \/.    ||_____/   )  #
+#  // ___)_ |: \.        ||: \.        | //      /   #
+# (:      "||.  \    /:  ||.  \    /:  ||:  __   \   #
+#  \_______)|___|\__/|___||___|\__/|___||__|  \___)  #
+#----------------------------------------------------#
+# robots.txt for emmr.me
+# Last updated: 2025-11-03
+# Allow all search engines to crawl and index your public pages
+
+User-agent: *
+Disallow: /error/
+Disallow: /.git/
+Disallow: /.htaccess
+Disallow: /Dockerfile
+Disallow: /fly.toml
+Disallow: /notes.txt
+Disallow: /cgi-bin/
+Allow: /
+
+# Sitemap (important for search engine indexing)
+Sitemap: https://emmr.me/sitemap.xml
