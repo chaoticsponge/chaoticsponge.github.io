@@ -26,6 +26,8 @@ jobs:
           node-version: 22
 
       - name: Refresh Google Scholar metrics
+        env:
+          SCHOLAR_UPDATE_SOFT_FAIL: "1"
         run: node scripts/update-scholar-stats.mjs
 
       - name: Commit changed metrics

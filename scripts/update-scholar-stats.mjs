@@ -2,6 +2,10 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const profileUrl = "https://scholar.google.com/citations?hl=en&user=a-fHvRUAAAAJ";
 const outputPath = new URL("../assets/scholar-stats.js", import.meta.url);
+const softFail =
+  process.env.SCHOLAR_UPDATE_SOFT_FAIL === "1" ||
+  process.env.SCHOLAR_UPDATE_SOFT_FAIL === "true" ||
+  process.env.GITHUB_ACTIONS === "true";
 
 function parseMetric(html, label) {
   const escapedLabel = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -63,10 +67,24 @@ async function fetchProfile() {
   throw lastError;
 }
 
-const html = await fetchProfile();
-const nextStats = parseStats(html);
 const currentSource = await readFile(outputPath, "utf8").catch(() => "");
 const currentStats = parseCurrentStats(currentSource);
+
+let nextStats;
+
+try {
+  const html = await fetchProfile();
+  nextStats = parseStats(html);
+} catch (error) {
+  if (softFail && currentStats) {
+    console.warn(`Scholar metrics could not be refreshed: ${error.message}`);
+    console.warn(`Keeping existing Scholar metrics from ${currentStats.updated || "the current snapshot"}.`);
+    process.exit(0);
+  }
+
+  throw error;
+}
+
 const comparableCurrent = currentStats && {
   citations: currentStats.citations,
   hIndex: currentStats.hIndex,
