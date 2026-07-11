@@ -1201,11 +1201,24 @@ footer {
 
 .footer-inner {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   max-width: var(--container-width);
   margin: 0 auto;
   gap: var(--space-5);
   font-size: 0.9rem;
+}
+
+.footer-credit {
+  color: var(--color-text-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.footer-credit a {
+  color: var(--color-navy);
+  text-decoration: underline;
 }
 
 @media (max-width: 900px) {
