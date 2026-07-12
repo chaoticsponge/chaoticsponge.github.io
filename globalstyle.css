@@ -437,6 +437,8 @@ h3 {
 .page-hero h1 {
   max-width: 58rem;
   color: var(--color-navy);
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .page-hero .eyebrow {
@@ -1332,6 +1334,10 @@ footer {
 
   .page-hero {
     padding-block: var(--space-10);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.1rem, 10vw, 3.25rem);
   }
 
   .hero-inner,
